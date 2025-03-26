@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Add New Consumption Reading</h2>
+                <% if (locals.error) { %>
+                    <div class="alert alert-danger"><%= error %></div>
+                <% } %>
+                <form action="/consumption" method="POST">
+                    <div class="mb-3">
+                        <label for="meterId" class="form-label">Meter</label>
+                        <select class="form-control" id="meterId" name="consumption[meterId]" required>
+                            <option value="">Select Meter</option>
+                            <% meters.forEach(meter => { %>
+                                <option value="<%= meter._id %>">
+                                    <%= meter.meterNumber %> (<%= meter.customerId.name %>)
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="readingDate" class="form-label">Reading Date</label>
+                        <input type="date" class="form-control" id="readingDate" name="consumption[readingDate]" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="unitsUsed" class="form-label">Units Used</label>
+                        <input type="number" class="form-control" id="unitsUsed" name="consumption[unitsUsed]" min="0" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Reading</button>
+                    <a href="/consumption" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

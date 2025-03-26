@@ -1,0 +1,123 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>Welcome, <%= customer.name %></h2>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Your Bills</h5>
+            </div>
+            <div class="card-body">
+                <% if (bills.length) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Bill Number</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% bills.forEach(bill => { %>
+                                <tr>
+                                    <td><%= bill.billNumber %></td>
+                                    <td><%= bill.issueDate.toLocaleDateString() %></td>
+                                    <td><%= bill.dueDate.toLocaleDateString() %></td>
+                                    <td>₹<%= bill.total %></td>
+                                    <td>
+                                        <span class="badge bg-<%= bill.status === 'paid' ? 'success' : 
+                                            bill.status === 'overdue' ? 'danger' : 'warning' %>">
+                                            <%= bill.status %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="/customer/bills/<%= bill._id %>" class="btn btn-sm btn-info">View</a>
+                                        <% if (bill.status !== 'paid') { %>
+                                            <a href="/customer/bills/<%= bill._id %>/pay" class="btn btn-sm btn-success">Pay Now</a>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No bills found</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Your Meters</h5>
+            </div>
+            <div class="card-body">
+                <% if (meters.length) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Meter Number</th>
+                                <th>Installation Date</th>
+                                <th>Last Reading</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% meters.forEach(meter => { %>
+                                <tr>
+                                    <td><%= meter.meterNumber %></td>
+                                    <td><%= meter.installationDate.toLocaleDateString() %></td>
+                                    <td><%= meter.lastReading || 'No readings yet' %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No meters found</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Recent Consumption</h5>
+            </div>
+            <div class="card-body">
+                <% if (consumption.length) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Meter</th>
+                                <th>Units Used</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% consumption.forEach(record => { %>
+                                <tr>
+                                    <td><%= record.readingDate.toLocaleDateString() %></td>
+                                    <td><%= record.meterId.meterNumber %></td>
+                                    <td><%= record.unitsUsed %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No consumption records found</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>

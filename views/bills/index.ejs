@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bills</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <% layout('layouts/boilerplate') %>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Bills</h2>
+            <a href="/bills/new" class="btn btn-primary">Generate New Bill</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <% if (bills.length) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Bill Number</th>
+                                <th>Customer</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% bills.forEach(bill => { %>
+                                <tr>
+                                    <td><%= bill.billNumber %></td>
+                                    <td><%= bill.customer.name %></td>
+                                    <td><%= bill.issueDate.toLocaleDateString() %></td>
+                                    <td><%= bill.dueDate.toLocaleDateString() %></td>
+                                    <td>₹<%= bill.total %></td>
+                                    <td><span class="badge bg-<%= bill.status === 'paid' ? 'success' : 'warning' %>">
+                                        <%= bill.status %>
+                                    </span></td>
+                                    <td>
+                                        <a href="/bills/<%= bill._id %>" class="btn btn-sm btn-info">View</a>
+                                        <a href="/bills/<%= bill._id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No bills found</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</html> 

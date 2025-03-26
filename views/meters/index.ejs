@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Meters</h2>
+    <a href="/meters/new" class="btn btn-primary">Add New Meter</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <% if (meters.length) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Meter Number</th>
+                        <th>Customer Name</th>
+                        <th>Installation Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% meters.forEach(meter => { %>
+                        <tr>
+                            <td><%= meter.meterNumber %></td>
+                            <td><%= meter.customerId.name %></td>
+                            <td><%= meter.installationDate.toLocaleDateString() %></td>
+                            <td>
+                                <a href="/meters/<%= meter._id %>" class="btn btn-sm btn-info">View</a>
+                                <a href="/meters/<%= meter._id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No meters found</p>
+        <% } %>
+    </div>
+</div> 

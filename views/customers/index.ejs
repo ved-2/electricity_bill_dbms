@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Customers</h2>
+    <a href="/customers/new" class="btn btn-primary">Add New Customer</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <% if (customers.length) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% customers.forEach(customer => { %>
+                        <tr>
+                            <td><%= customer.name %></td>
+                            <td><%= customer.email %></td>
+                            <td><%= customer.contactNumber %></td>
+                            <td><%= customer.address %></td>
+                            <td>
+                                <a href="/customers/<%= customer._id %>" class="btn btn-sm btn-info">View</a>
+                                <a href="/customers/<%= customer._id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No customers found</p>
+        <% } %>
+    </div>
+</div> 

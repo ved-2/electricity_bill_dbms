@@ -1,0 +1,99 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <h2>Dashboard</h2>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Total Customers</h5>
+                <h2 class="card-text"><%= stats.totalCustomers %></h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Total Meters</h5>
+                <h2 class="card-text"><%= stats.totalMeters %></h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">Total Bills</h5>
+                <h2 class="card-text"><%= stats.totalBills %></h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Recent Bills
+            </div>
+            <div class="card-body">
+                <% if (stats.recentBills.length) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% stats.recentBills.forEach(bill => { %>
+                                <tr>
+                                    <td><%= bill.customer.name %></td>
+                                    <td>₹<%= bill.total %></td>
+                                    <td><%= bill.status %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No recent bills</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Recent Consumption Records
+            </div>
+            <div class="card-body">
+                <% if (stats.recentConsumptions.length) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Meter</th>
+                                <th>Units</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% stats.recentConsumptions.forEach(consumption => { %>
+                                <tr>
+                                    <td><%= consumption.meterId.meterNumber %></td>
+                                    <td><%= consumption.unitsUsed %></td>
+                                    <td><%= consumption.readingDate.toLocaleDateString() %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No recent consumption records</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div> 

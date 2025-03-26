@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+    <h2>My Profile</h2>
+    
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Name:</strong> <%= customer.name %></p>
+                    <p><strong>Email:</strong> <%= customer.email %></p>
+                    <p><strong>Contact Number:</strong> <%= customer.contactNumber %></p>
+                    <p><strong>Address:</strong> <%= customer.address %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

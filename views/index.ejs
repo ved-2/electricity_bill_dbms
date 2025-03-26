@@ -1,0 +1,13 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to Utility Billing System</h1>
+        <p class="lead">Manage your utility bills efficiently</p>
+        <hr class="my-4">
+        <% if (!locals.isAdmin && !locals.customerId) { %>
+            <p>Please login to access your account</p>
+            <a class="btn btn-primary btn-lg" href="/login" role="button">Login</a>
+        <% } %>
+    </div>
+</div> 
